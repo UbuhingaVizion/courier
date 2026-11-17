@@ -1,0 +1,197 @@
+[
+    {
+        "label": "Receive Text",
+        "url": "/c/tt/8eb23e93-5ecb-45ba-b726-3b064e0c568c/receive/",
+        "data": {
+            "client_key": "app123",
+            "event": "im_receive_msg",
+            "create_time": 1714430514,
+            "user_openid": "business123",
+            "content": "{\"from\":\"buyer\",\"to\":\"shop\",\"from_user\":{\"id\":\"buyer123\",\"role\":\"personal_account\"},\"to_user\":{\"id\":\"business123\",\"role\":\"business_account\"},\"conversation_id\":\"conv+1==\",\"message_id\":\"msg1\",\"timestamp\":1714430514000,\"type\":\"text\",\"text\":{\"body\":\"ORDER SKU-1\"}}"
+        },
+        "response": {
+            "status": 200,
+            "body": {
+                "message": "Message Accepted",
+                "data": [
+                    {
+                        "type": "msg",
+                        "channel_uuid": "8eb23e93-5ecb-45ba-b726-3b064e0c568c",
+                        "msg_uuid": "019aa704-d880-7000-a4a5-4b9ba207bfc1",
+                        "text": "ORDER SKU-1",
+                        "urn": "ext:tt_buyer123?conversation=Y29udisxPT0",
+                        "external_id": "msg1",
+                        "received_on": "2024-04-29T22:41:54Z"
+                    }
+                ]
+            }
+        },
+        "msgs": [
+            {
+                "uuid": "019aa704-d880-7000-a4a5-4b9ba207bfc1",
+                "channel_uuid": "8eb23e93-5ecb-45ba-b726-3b064e0c568c",
+                "urn": "ext:tt_buyer123?conversation=Y29udisxPT0",
+                "text": "ORDER SKU-1",
+                "external_id": "msg1",
+                "created_on": "2025-11-21T15:25:03Z",
+                "received_on": "2024-04-29T22:41:54Z",
+                "log_uuids": [
+                    "019aa704-ccc8-7000-8940-cb08cf89d7fa"
+                ]
+            }
+        ],
+        "log": {
+            "type": "receive",
+            "errors": []
+        }
+    },
+    {
+        "label": "Receive Share Post",
+        "url": "/c/tt/8eb23e93-5ecb-45ba-b726-3b064e0c568c/receive/",
+        "data": {
+            "client_key": "app123",
+            "event": "im_receive_msg",
+            "create_time": 1714430514,
+            "user_openid": "business123",
+            "content": "{\"from\":\"buyer\",\"to\":\"shop\",\"from_user\":{\"id\":\"buyer123\",\"role\":\"personal_account\"},\"to_user\":{\"id\":\"business123\",\"role\":\"business_account\"},\"conversation_id\":\"conv+1==\",\"message_id\":\"msg2\",\"timestamp\":1714430515000,\"type\":\"share_post\",\"share_post\":{\"embed_url\":\"https://www.tiktok.com/@shop/video/123\",\"video_id\":\"123\"}}"
+        },
+        "response": {
+            "status": 200,
+            "body": {
+                "message": "Message Accepted",
+                "data": [
+                    {
+                        "type": "msg",
+                        "channel_uuid": "8eb23e93-5ecb-45ba-b726-3b064e0c568c",
+                        "msg_uuid": "019a2afa-b200-7000-8cdb-69c9d31f7878",
+                        "text": "https://www.tiktok.com/@shop/video/123",
+                        "urn": "ext:tt_buyer123?conversation=Y29udisxPT0",
+                        "external_id": "msg2",
+                        "received_on": "2024-04-29T22:41:55Z"
+                    }
+                ]
+            }
+        },
+        "msgs": [
+            {
+                "uuid": "019a2afa-b200-7000-8cdb-69c9d31f7878",
+                "channel_uuid": "8eb23e93-5ecb-45ba-b726-3b064e0c568c",
+                "urn": "ext:tt_buyer123?conversation=Y29udisxPT0",
+                "text": "https://www.tiktok.com/@shop/video/123",
+                "external_id": "msg2",
+                "created_on": "2025-10-28T13:21:03Z",
+                "received_on": "2024-04-29T22:41:55Z",
+                "log_uuids": [
+                    "019a2afa-a648-7000-8c0c-5febd9edb452"
+                ]
+            }
+        ],
+        "log": {
+            "type": "receive",
+            "errors": []
+        }
+    },
+    {
+        "label": "Ignore Echo",
+        "url": "/c/tt/8eb23e93-5ecb-45ba-b726-3b064e0c568c/receive/",
+        "data": {
+            "client_key": "app123",
+            "event": "im_send_msg",
+            "create_time": 1714430514,
+            "user_openid": "business123",
+            "content": "{\"from\":\"shop\",\"to\":\"buyer\",\"from_user\":{\"id\":\"business123\",\"role\":\"business_account\"},\"to_user\":{\"id\":\"buyer123\",\"role\":\"personal_account\"},\"conversation_id\":\"conv+1==\",\"message_id\":\"msg3\",\"timestamp\":1714430516000,\"type\":\"text\",\"text\":{\"body\":\"Hello\"}}"
+        },
+        "response": {
+            "status": 200,
+            "body": {
+                "message": "Message Accepted",
+                "data": []
+            }
+        },
+        "log": {
+            "type": "receive",
+            "errors": []
+        }
+    },
+    {
+        "label": "Ignore European Event",
+        "url": "/c/tt/8eb23e93-5ecb-45ba-b726-3b064e0c568c/receive/",
+        "data": {
+            "client_key": "app123",
+            "event": "im_receive_msg_eu",
+            "create_time": 1714430514,
+            "user_openid": "business123",
+            "content": "{}"
+        },
+        "response": {
+            "status": 200,
+            "body": {
+                "message": "Message Accepted",
+                "data": []
+            }
+        },
+        "log": {
+            "type": "receive",
+            "errors": []
+        }
+    },
+    {
+        "label": "Reject Invalid Signature",
+        "url": "/c/tt/8eb23e93-5ecb-45ba-b726-3b064e0c568c/receive/",
+        "headers": {
+            "TikTok-Signature": "t=1714430514,s=deadbeef"
+        },
+        "data": {
+            "client_key": "app123",
+            "event": "im_receive_msg",
+            "create_time": 1714430514,
+            "user_openid": "business123",
+            "content": "{}"
+        },
+        "unsigned": true,
+        "response": {
+            "status": 403,
+            "body": {
+                "message": "Error",
+                "data": [
+                    {
+                        "type": "error",
+                        "error": "invalid request signature"
+                    }
+                ]
+            }
+        },
+        "log": {
+            "type": "receive",
+            "errors": []
+        }
+    },
+    {
+        "label": "Reject Missing Signature",
+        "url": "/c/tt/8eb23e93-5ecb-45ba-b726-3b064e0c568c/receive/",
+        "data": {
+            "client_key": "app123",
+            "event": "im_receive_msg",
+            "create_time": 1714430514,
+            "user_openid": "business123",
+            "content": "{}"
+        },
+        "unsigned": true,
+        "response": {
+            "status": 403,
+            "body": {
+                "message": "Error",
+                "data": [
+                    {
+                        "type": "error",
+                        "error": "missing TikTok-Signature header"
+                    }
+                ]
+            }
+        },
+        "log": {
+            "type": "receive",
+            "errors": []
+        }
+    }
+]
