@@ -1,8 +1,14 @@
 package main
 
 import (
+	"fmt"
+	"os"
+	"time"
+
+	"github.com/getsentry/sentry-go"
 	"github.com/nyaruka/courier/v26/cmd"
 	"github.com/nyaruka/courier/v26/runtime"
+	"github.com/nyaruka/courier/v26/utils"
 
 	// load channel handler packages
 	_ "github.com/nyaruka/courier/v26/handlers/africastalking"
@@ -65,5 +71,26 @@ var (
 func main() {
 	cfg := runtime.NewDefaultConfig()
 	cmd.LoadConfig(cfg)
+
+	if cfg.SentryDSN != "" {
+		release := cfg.SentryRelease
+		if release == "" {
+			release = version
+		}
+
+		err := sentry.Init(sentry.ClientOptions{
+			Dsn:              cfg.SentryDSN,
+			Environment:      cfg.SentryEnvironment,
+			Release:          release,
+			AttachStacktrace: true,
+			BeforeSend:       utils.SentryBeforeSend,
+		})
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "unable to initialise sentry: %s\n", err)
+		} else {
+			defer sentry.Flush(2 * time.Second)
+		}
+	}
+
 	cmd.Run(cmd.Service(cfg, version, date, cmd.LogHandler()))
 }

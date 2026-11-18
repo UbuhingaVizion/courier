@@ -52,6 +52,10 @@ type Config struct {
 	LogLevel           slog.Level `help:"the logging level courier should use"`
 	Version            string     `help:"the version that will be used in request and response headers"`
 
+	SentryDSN         string `help:"the DSN used to report errors to Sentry"`
+	SentryEnvironment string `help:"the environment name reported to Sentry"`
+	SentryRelease     string `help:"the release name reported to Sentry"`
+
 	DefaultContactLimit int `help:"the maximum number of contacts a workspace can have, when not set on the workspace itself, zero means no limit"`
 
 	// parsed values that can't be set directly
