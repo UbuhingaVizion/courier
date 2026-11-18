@@ -12,6 +12,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/getsentry/sentry-go/http"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/nyaruka/courier/v26/core/channels"
@@ -38,6 +39,7 @@ func NewServer(rt *runtime.Runtime) *Server {
 	testRouter.Use(middleware.RequestID)
 	testRouter.Use(middleware.RealIP)
 	testRouter.Use(middleware.Recoverer)
+	testRouter.Use(sentryhttp.New(sentryhttp.Options{Repanic: true}).Handle)
 	testRouter.Use(middleware.Timeout(30 * time.Second))
 	testRouter.Mount("/c/", channelRouter)
 
@@ -81,6 +83,7 @@ func (s *Server) Start() error {
 	internetRouter.Use(middleware.RequestID)
 	internetRouter.Use(middleware.RealIP)
 	internetRouter.Use(middleware.Recoverer)
+	internetRouter.Use(sentryhttp.New(sentryhttp.Options{Repanic: true}).Handle)
 	internetRouter.Use(middleware.Timeout(30 * time.Second))
 	internetRouter.NotFound(s.handle404("internet"))
 	internetRouter.MethodNotAllowed(s.handle405("internet"))
@@ -93,6 +96,7 @@ func (s *Server) Start() error {
 	internalRouter.Use(middleware.StripSlashes)
 	internalRouter.Use(middleware.RequestID)
 	internalRouter.Use(middleware.Recoverer)
+	internalRouter.Use(sentryhttp.New(sentryhttp.Options{Repanic: true}).Handle)
 	internalRouter.Use(middleware.Timeout(30 * time.Second))
 	internalRouter.NotFound(s.handle404("internal"))
 	internalRouter.MethodNotAllowed(s.handle405("internal"))

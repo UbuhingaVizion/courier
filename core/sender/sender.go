@@ -11,6 +11,7 @@ import (
 	"github.com/nyaruka/courier/v26/core/channels"
 	"github.com/nyaruka/courier/v26/core/models"
 	"github.com/nyaruka/courier/v26/runtime"
+	"github.com/nyaruka/courier/v26/utils"
 	"github.com/nyaruka/gocommon/svclogs"
 	"github.com/nyaruka/gocommon/urns"
 )
@@ -333,7 +334,13 @@ func (w *Sender) sendByHandler(ctx context.Context, h channels.Handler, m *model
 			status.SetStatus(models.MsgStatusFailed)
 		}
 
-		clog.Error(serr.ClogError())
+		clogErr := serr.ClogError()
+		clog.Error(clogErr)
+		utils.ReportSendError(clogErr.Code, clogErr.Message, serr.Retryable(), map[string]string{
+			"channel_type": string(m.Channel().ChannelType()),
+			"channel_uuid": string(m.Channel().UUID()),
+			"error_class":  clogErr.Code,
+		})
 
 		// if handler returned ErrContactStopped need to write a stop event
 		if serr == channels.ErrContactStopped {
@@ -349,6 +356,11 @@ func (w *Sender) sendByHandler(ctx context.Context, h channels.Handler, m *model
 		status.SetStatus(models.MsgStatusErrored)
 
 		clog.Error(&svclogs.Error{Code: "internal_error", Message: "An internal error occured."})
+		utils.ReportError(err, map[string]string{
+			"channel_type": string(m.Channel().ChannelType()),
+			"channel_uuid": string(m.Channel().UUID()),
+			"error_class":  "internal",
+		})
 	}
 
 	return status, res, notSent
